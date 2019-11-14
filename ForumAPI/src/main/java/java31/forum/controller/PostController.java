@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java31.forum.domein.Post;
 import java31.forum.dto.MessageDto;
 import java31.forum.dto.PostDto;
+import java31.forum.dto.RequestPostDto;
 import java31.forum.service.IForumService;
 
 @RestController
@@ -24,21 +25,21 @@ public class PostController {
 	String tempId = "id: " + countId;
 	
 	@PostMapping("/forum/post/{author}")
-	public Post addPost(@PathVariable String author, @RequestBody PostDto post) {
+	public PostDto addPost(@PathVariable String author, @RequestBody RequestPostDto post) {
 		return iForumService.addPost(author , post);
 	}
 	
 	@GetMapping("/forum/post/{id}")
-	public Post findPostById(@PathVariable String id) {
+	public PostDto findPostById(@PathVariable String id) {
 		return iForumService.findPostById(id);
 	}
 	@DeleteMapping("/forum/post/{id}")
-	public Post deletePost(@PathVariable String id) {
+	public PostDto deletePost(@PathVariable String id) {
 		return iForumService.deletePost(id);
 	}
 	
 	@PutMapping("/forum/post/{id}")
-	public Post updatePost(@PathVariable String id, @RequestBody PostDto postDto) {
+	public PostDto updatePost(@PathVariable String id, @RequestBody RequestPostDto postDto) {
 		return iForumService.updatePost(id ,postDto);
 	}
 	
@@ -48,7 +49,7 @@ public class PostController {
 	}
 	
 	@PutMapping("/forum/post/{id}/comment/{author}")
-	public Post addCommentToPost(@PathVariable String postId, @PathVariable String author ,@RequestBody MessageDto messageDto) {
+	public PostDto addCommentToPost(@PathVariable String postId, @PathVariable String author ,@RequestBody MessageDto messageDto) {
 		return iForumService.addCommentToPost(postId, author, messageDto);
 	}
 	@GetMapping("/forum/posts/author/{author}")

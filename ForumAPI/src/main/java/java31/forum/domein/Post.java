@@ -29,9 +29,9 @@ public class Post {
 	Set<String> tags;
 	int likes;
 	Set<Comment> comments;
-	public Post(String id, String title, String content,
+	public Post( String title, String content,
 			String author, Set<String> tags) {
-		this.id = id;
+		//this.id = id;
 		this.title = title;
 		this.content = content;
 		this.author = author;
