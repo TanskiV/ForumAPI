@@ -49,8 +49,8 @@ public class PostController {
 	}
 	
 	@PutMapping("/forum/post/{id}/comment/{author}")
-	public PostDto addCommentToPost(@PathVariable String postId, @PathVariable String author ,@RequestBody MessageDto messageDto) {
-		return iForumService.addCommentToPost(postId, author, messageDto);
+	public PostDto addCommentToPost(@PathVariable String id, @PathVariable String author ,@RequestBody MessageDto messageDto) {
+		return iForumService.addCommentToPost(id, author, messageDto);
 	}
 	@GetMapping("/forum/posts/author/{author}")
 	public List<Post> findPostByAuthor(@PathVariable String author) {
