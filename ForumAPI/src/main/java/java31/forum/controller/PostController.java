@@ -54,7 +54,12 @@ public class PostController {
 	}
 	@GetMapping("/forum/posts/author/{author}")
 	public List<Post> findPostByAuthor(@PathVariable String author) {
-		return iForumService.findPostByAutor(author);
+		  return iForumService.findPostByAutor(author);
+		 
+	}
+	@PostMapping("/forum/posts/tags")
+	public Iterable<PostDto> findPostsByTags(@RequestBody List<String> tags) {
+		return iForumService.findByTags(tags);
 	}
 
 }

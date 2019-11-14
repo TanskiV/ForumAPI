@@ -3,6 +3,7 @@ package java31.forum.service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,6 @@ import java31.forum.dto.RequestPostDto;
 public class ForumServiceImpl implements IForumService{
 	@Autowired
 	IPostsRepository iPostsRepository;
-	//static int tempId = 1;
 
 	@Override
 	public PostDto addPost(String author, RequestPostDto postDto) {
@@ -89,19 +89,19 @@ public class ForumServiceImpl implements IForumService{
 		return postDto;
 	}
 
-
-	@Override
-	public Iterable<PostDto> findPostsByTags(List<String> tags) {
-		
-		return iPostsRepository.findPostsByTags(tags);
-	}
-
-
-
 	@Override
 	public Iterable<PostDto> findPostsCreatedBetweenDates(LocalDate from, LocalDate to) {
 		
 		return iPostsRepository.findPostsByDateCreated(from, to);
 	}
+
+
+
+	@Override
+	public Iterable<PostDto> findByTags(List<String> tags) {
+		
+		return iPostsRepository.findByTagsIn(tags).map(p -> postToPostDto(p) ).collect(Collectors.toList());
+	}
+
 
 }

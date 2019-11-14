@@ -16,7 +16,7 @@ PostDto updatePost (String id, RequestPostDto updatePostDto);
 boolean addLikeToPost(String id);
 PostDto addCommentToPost(String id, String author, MessageDto messageDto);
 List<Post> findPostByAutor(String autor);
-Iterable<PostDto> findPostsByTags(List<String> tags);
+Iterable<PostDto> findByTags(List<String> tags);
 
 Iterable<PostDto> findPostsCreatedBetweenDates(LocalDate from, LocalDate to);
 }
