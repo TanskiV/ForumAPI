@@ -1,6 +1,7 @@
 package java31.forum.service;
 
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -12,6 +13,7 @@ import java31.forum.dao.IPostsRepository;
 import java31.forum.dao.PostNotFoundThrow;
 import java31.forum.domein.Comment;
 import java31.forum.domein.Post;
+import java31.forum.dto.DatePeriodDto;
 import java31.forum.dto.MessageDto;
 import java31.forum.dto.PostDto;
 import java31.forum.dto.RequestPostDto;
@@ -89,18 +91,28 @@ public class ForumServiceImpl implements IForumService{
 		return postDto;
 	}
 
-	@Override
-	public Iterable<PostDto> findPostsCreatedBetweenDates(LocalDate from, LocalDate to) {
-		
-		return iPostsRepository.findPostsByDateCreated(from, to);
-	}
+
 
 
 
 	@Override
 	public Iterable<PostDto> findByTags(List<String> tags) {
 		
-		return iPostsRepository.findByTagsIn(tags).map(p -> postToPostDto(p) ).collect(Collectors.toList());
+		return iPostsRepository.findByTagsIn(tags).map(this::postToPostDto).collect(Collectors.toList());
+	}
+
+
+
+	@Override
+	public Iterable<PostDto> findByDateCreated(DatePeriodDto datePeriodDto) {
+		try {
+			LocalDate from = LocalDate.parse(datePeriodDto.getDateFrom());
+			LocalDate to = LocalDate.parse(datePeriodDto.getDateTo());
+			
+			return iPostsRepository.findByDateCreatedBetween(from, to).map(this::postToPostDto).collect(Collectors.toList());
+		} catch (Exception e) {
+			throw new WrongDateFormatExeption();
+		}
 	}
 
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java31.forum.domein.Post;
+import java31.forum.dto.DatePeriodDto;
 import java31.forum.dto.MessageDto;
 import java31.forum.dto.PostDto;
 import java31.forum.dto.RequestPostDto;
@@ -60,6 +61,10 @@ public class PostController {
 	@PostMapping("/forum/posts/tags")
 	public Iterable<PostDto> findPostsByTags(@RequestBody List<String> tags) {
 		return iForumService.findByTags(tags);
+	}
+	@PostMapping("/forum/posts/period")
+	public Iterable<PostDto> findPostByPeriod(@RequestBody DatePeriodDto datePeriodDto ){
+		return iForumService.findByDateCreated(datePeriodDto);
 	}
 
 }

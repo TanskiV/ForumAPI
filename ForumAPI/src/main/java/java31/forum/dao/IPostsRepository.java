@@ -12,5 +12,5 @@ import java31.forum.dto.PostDto;
 public interface IPostsRepository extends MongoRepository<Post, String>{
 Stream<Post> findPostByAuthor(String author);
 Stream<Post> findByTagsIn(List<String> tags);
-Iterable<PostDto> findPostsByDateCreated(LocalDate from, LocalDate to);
+Stream<Post> findByDateCreatedBetween(LocalDate from, LocalDate to);
 }
